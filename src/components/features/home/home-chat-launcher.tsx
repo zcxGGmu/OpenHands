@@ -231,6 +231,7 @@ export function HomeChatLauncher() {
             onSubmit={handleSubmitWithModelGuard}
             onFilesPaste={handleUpload}
             disabled={isCreating || llmBlocked}
+            placeholder={t(I18nKey.CHAT_INTERFACE$INPUT_PLACEHOLDER)}
           />
         </div>
 

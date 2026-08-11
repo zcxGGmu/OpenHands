@@ -1887,7 +1887,7 @@
     "ca": "JSON no vàlid"
   },
   "HOME$LETS_START_BUILDING": {
-    "en": "Let's Start Building!",
+    "en": "What do you want to work on?",
     "ja": "開発を始めましょう！",
     "zh-CN": "让我们开始开发！",
     "zh-TW": "讓我們開始開發！",
@@ -1904,7 +1904,7 @@
     "ca": "Comencem a construir!"
   },
   "HOME$OPENHANDS_DESCRIPTION": {
-    "en": "OpenHands makes it easy to build and maintain software using AI-driven development.",
+    "en": "Investigate, implement, debug, test, review, or automate work across your codebase.",
     "ja": "OpenHandsはAI駆動の開発を使用してソフトウェアの開発と維持を容易にします。",
     "zh-CN": "OpenHands使用AI驱动的开发方式，轻松构建和维护软件。",
     "zh-TW": "OpenHands使用AI驅動的開發方式，輕鬆構建和維護軟件。",
@@ -11288,7 +11288,7 @@
     "ca": "L'acció de l'agent ha estat rebutjada!"
   },
   "CHAT_INTERFACE$INPUT_PLACEHOLDER": {
-    "en": "Message assistant...",
+    "en": "Describe an engineering task…",
     "zh-CN": "给助理发消息",
     "de": "Sende eine Nachricht an den Assistenten...",
     "ko-KR": "어시스턴트에게 메시지 보내기",

@@ -15,6 +15,7 @@ interface ChatInputContainerProps {
   canSubmit: boolean;
   hasStartedConversation?: boolean;
   isNewConversationPending?: boolean;
+  placeholder?: string;
   showButton: boolean;
   buttonClassName: string;
   chatInputRef: React.RefObject<HTMLDivElement | null>;
@@ -41,6 +42,7 @@ export function ChatInputContainer({
   canSubmit,
   hasStartedConversation,
   isNewConversationPending = false,
+  placeholder,
   showButton,
   buttonClassName,
   chatInputRef,
@@ -93,6 +95,7 @@ export function ChatInputContainer({
         <ChatInputRow
           chatInputRef={chatInputRef}
           isNewConversationPending={isNewConversationPending}
+          placeholder={placeholder}
           onInput={onInput}
           onPaste={onPaste}
           onKeyDown={onKeyDown}

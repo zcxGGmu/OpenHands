@@ -12,7 +12,9 @@ vi.mock("react-i18next", async () => {
       t: (key: string) => {
         // Return a mock translation for the test
         const translations: Record<string, string> = {
-          HOME$LETS_START_BUILDING: "Let's start building",
+          HOME$LETS_START_BUILDING: "What do you want to work on?",
+          HOME$OPENHANDS_DESCRIPTION:
+            "Investigate, implement, debug, test, review, or automate work across your codebase.",
         };
         return translations[key] || key;
       },
@@ -32,11 +34,17 @@ const renderHomeHeader = () => {
 };
 
 describe("HomeHeader", () => {
-  it("should render the header with the correct title", () => {
+  it("should render the header with the updated splash copy", () => {
     renderHomeHeader();
 
-    const title = screen.getByText("Let's start building");
-    expect(title).toBeInTheDocument();
+    expect(
+      screen.getByText("What do you want to work on?"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Investigate, implement, debug, test, review, or automate work across your codebase.",
+      ),
+    ).toBeInTheDocument();
   });
 
   it("should render the GuideMessage component", () => {
@@ -46,5 +54,4 @@ describe("HomeHeader", () => {
     const header = screen.getByRole("banner");
     expect(header).toBeInTheDocument();
   });
-
 });

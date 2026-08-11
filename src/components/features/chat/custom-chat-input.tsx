@@ -15,6 +15,7 @@ export interface CustomChatInputProps {
   disabled?: boolean;
   isNewConversationPending?: boolean;
   hasStartedConversation?: boolean;
+  placeholder?: string;
   showButton?: boolean;
   onSubmit: (message: string) => void;
   onFocus?: () => void;
@@ -31,6 +32,7 @@ export function CustomChatInput({
   disabled = false,
   isNewConversationPending = false,
   hasStartedConversation,
+  placeholder,
   showButton = true,
   onSubmit,
   onFocus,
@@ -190,6 +192,7 @@ export function CustomChatInput({
           canSubmit={canSubmit}
           hasStartedConversation={hasStartedConversation}
           isNewConversationPending={isNewConversationPending}
+          placeholder={placeholder}
           showButton={showButton}
           buttonClassName={buttonClassName}
           chatInputRef={chatInputRef}

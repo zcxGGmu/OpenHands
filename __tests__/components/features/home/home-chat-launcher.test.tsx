@@ -38,6 +38,10 @@ vi.mock("#/stores/conversation-store", () => ({
   }),
 }));
 
+vi.mock("#/stores/pending-task-attachments-store", () => ({
+  setPendingTaskAttachments: vi.fn(),
+}));
+
 vi.mock("#/utils/custom-toast-handlers", async (importOriginal) => {
   const actual =
     await importOriginal<typeof import("#/utils/custom-toast-handlers")>();
@@ -48,7 +52,12 @@ vi.mock("#/utils/custom-toast-handlers", async (importOriginal) => {
 });
 
 vi.mock("react-i18next", () => ({
-  useTranslation: () => ({ t: (key: string) => key }),
+  useTranslation: () => ({
+    t: (key: string) =>
+      key === "CHAT_INTERFACE$INPUT_PLACEHOLDER"
+        ? "Describe an engineering task…"
+        : key,
+  }),
 }));
 
 vi.mock("#/context/navigation-context", () => ({
@@ -72,6 +81,13 @@ vi.mock("#/hooks/use-is-creating-conversation", () => ({
   useIsCreatingConversation: () => false,
 }));
 
+vi.mock("#/hooks/chat/use-model-interceptor", () => ({
+  useModelInterceptor: (
+    _conversationId: string | null,
+    onSubmit: (message: string) => void,
+  ) => onSubmit,
+}));
+
 vi.mock("#/hooks/use-tracking", () => ({
   useTracking: () => ({
     trackConversationCreated: vi.fn(),
@@ -86,13 +102,16 @@ vi.mock("#/components/features/chat/custom-chat-input", () => ({
   CustomChatInput: ({
     onSubmit,
     disabled,
+    placeholder,
   }: {
     onSubmit: (msg: string) => void;
     disabled?: boolean;
+    placeholder?: string;
   }) => (
     <button
       type="button"
       data-testid="stub-chat-submit"
+      data-placeholder={placeholder}
       disabled={disabled}
       onClick={() => onSubmit("hello world")}
     >
@@ -306,6 +325,15 @@ describe("HomeChatLauncher", () => {
 
   afterEach(() => {
     toast.remove();
+  });
+
+  it("passes the home engineering-task placeholder to the chat input", () => {
+    renderLauncher();
+
+    expect(screen.getByTestId("stub-chat-submit")).toHaveAttribute(
+      "data-placeholder",
+      "Describe an engineering task…",
+    );
   });
 
   it("creates a conversation with just the typed query and navigates when no workspace is selected", async () => {

@@ -4,12 +4,25 @@ import { describe, expect, it, vi } from "vitest";
 import { renderWithProviders } from "test-utils";
 import { ChatInputField } from "#/components/features/chat/components/chat-input-field";
 
-function Harness({ disabled }: { disabled: boolean }) {
+vi.mock("#/stores/conversation-store", () => ({
+  useConversationStore: (
+    selector: (state: { conversationMode: "code" }) => unknown,
+  ) => selector({ conversationMode: "code" }),
+}));
+
+function Harness({
+  disabled,
+  placeholder,
+}: {
+  disabled: boolean;
+  placeholder?: string;
+}) {
   const ref = React.useRef<HTMLDivElement | null>(null);
   return (
     <ChatInputField
       chatInputRef={ref}
       disabled={disabled}
+      placeholder={placeholder}
       onInput={vi.fn()}
       onPaste={vi.fn()}
       onKeyDown={vi.fn()}
@@ -37,5 +50,16 @@ describe("ChatInputField auto-focus", () => {
     rerender(<Harness disabled={false} />);
 
     expect(screen.getByTestId("chat-input")).not.toBe(document.activeElement);
+  });
+
+  it("uses a custom placeholder when provided", () => {
+    renderWithProviders(
+      <Harness disabled={false} placeholder="Describe an engineering task…" />,
+    );
+
+    expect(screen.getByTestId("chat-input")).toHaveAttribute(
+      "data-placeholder",
+      "Describe an engineering task…",
+    );
   });
 });
